@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-with open("./contracts/SimplStorage.sol", 'r') as contract:
+with open("../contracts/SimplStorage.sol", 'r') as contract:
     love = contract.read()
 
 compiled_col = compile_standard(
