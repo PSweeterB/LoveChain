@@ -1,10 +1,6 @@
-from brownie import accounts, LoveChain
+from brownie import accounts, LoveChain, network, config
 
 
 def main():
-    my_acc = accounts[0]
-    ss = LoveChain.deploy({"from": my_acc})
-    print(ss.retrieve())
-    print(ss.store(150, {"from": my_acc}))
-    print(ss.retrieve())
-
+    lo = LoveChain.deploy(config["networks"][network.show_active()]["oracle-address"], {'from': accounts[0]})
+    print(lo.getFee())

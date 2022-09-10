@@ -12,8 +12,8 @@ contract LoveChain is ERC721Burnable, Ownable {
     uint256 public feeInUSD;
     mapping (bytes32 => string) public tokenMessage;
 
-    constructor() ERC721("LoveChain", "LCH") {
-        ETHToUSDOracle = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
+    constructor(address _ETHToUSDOracle) ERC721("LoveChain", "LCH") {
+        ETHToUSDOracle = _ETHToUSDOracle;
         feeInUSD = 10;
     }
 

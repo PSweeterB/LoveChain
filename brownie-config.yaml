@@ -7,3 +7,9 @@ compiler:
     remappings:
       - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.7.3'
       - '@chainlink=smartcontractkit/chainlink@1.1.1'
+networks:
+  default: development
+  development:
+    oracle-address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419'
+  mainnet-fork-dev:
+    oracle-address: '0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419'

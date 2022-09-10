@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 
 import pytest
+from brownie import network, config
+
+FORKED_LOCAL_ENVIRONMENTS = ["mainnet-fork", "mainnet-fork-dev"]
+LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache-local"]
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -12,10 +16,14 @@ def isolate(fn_isolation):
 
 @pytest.fixture(scope="module")
 def loveChain(LoveChain, TestOracle, accounts):
-    to = TestOracle.deploy({"from": accounts[0]})
-    lo = LoveChain.deploy({'from': accounts[0]})
-    lo.setETHToUSDOracle(to.address, {'from': accounts[0]})
+    lo = None
+    if network.show_active() in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
+        to = TestOracle.deploy({"from": accounts[0]})
+        lo = LoveChain.deploy(to.address, {'from': accounts[0]})
+    else:
+        lo = LoveChain.deploy(config["networks"][network.show_active()]["oracle-address"], {'from': accounts[0]})
     return lo
+
 
 @pytest.fixture(scope="module")
 def testOracle(TestOracle, accounts):
